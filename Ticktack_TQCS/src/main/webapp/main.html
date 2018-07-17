@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="media/layui/css/layui.css" media="all">
+<link rel="stylesheet" href="media/css/font-awesome.min.css" media="all">
+
+<style>
+.info-box {
+	height: 85px;
+	background-color: white;
+	background-color: #ecf0f5;
+}
+
+.info-box .info-box-icon {
+	border-top-left-radius: 2px;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 2px;
+	display: block;
+	float: left;
+	height: 85px;
+	width: 85px;
+	text-align: center;
+	font-size: 45px;
+	line-height: 85px;
+	background: rgba(0, 0, 0, 0.2);
+}
+
+.info-box .info-box-content {
+	padding: 5px 10px;
+	margin-left: 85px;
+}
+
+.info-box .info-box-content .info-box-text {
+	display: block;
+	font-size: 14px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-transform: uppercase;
+}
+
+.info-box .info-box-content .info-box-number {
+	display: block;
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.major {
+	font-weight: 10px;
+	color: #01AAED;
+}
+
+.main {
+	margin-top: 25px;
+}
+
+.main .layui-row {
+	margin: 10px 0;
+}
+</style>
+</head>
+
+<body>
+	<div class="layui-fluid main">
+		<div class="layui-row layui-col-space15">
+			<div class="layui-col-md6">
+				<div class="info-box">
+					<span class="info-box-icon"
+						style="background-color: #00c0ef !important; color: white;">
+						<i class="fa fa-child" ></i></span>
+					<div class="info-box-content">代办事项<span
+							class="info-box-number" id="s1">90</span>
+					</div>
+				</div>
+			</div>
+			
+			<div class="layui-col-md6">
+				<div class="info-box">
+					<span class="info-box-icon"
+						style="background-color: #00a65a !important; color: white;"><i
+						class="fa fa-users" aria-hidden="true"></i></span>
+					<div class="info-box-content">
+						<span class="info-box-text">你有新消息</span> <span
+							class="info-box-number" id="s3">65</span>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="layui-row">
+			<div class="layui-col-md12">
+				<h2>系统使用状态 ： 当前342人在线，共打开598个页面</h2>
+			</div>
+		</div>
+		<div>
+			<table class="layui-table" id="tbdata"></table>
+
+		</div>
+	</div>
+	<script src="media/layui/layui.js"></script>
+	<script>
+		layui.use('table', function() {
+			var table = layui.table;
+			 
+			var table = layui.table;
+			  
+			  //第一个实例
+			  table.render({
+			    elem: '#tbdata'
+			    ,height: 315
+			    ,url: 'loginloglist.do' //数据接口
+			    ,page: false //开启分页
+			    ,cols: [[ //表头
+			    	{field: 'no', title: '登录账户'}
+			      ,{field: 'ip', title: '登录IP'}
+			      ,{field: 'location', title: '登录城市'} 
+			      ,{field: 'createtime', title: '登录时间'}
+			      ]]
+			  });
+			  
+		});
+	</script>
+</body>
+
+</html>

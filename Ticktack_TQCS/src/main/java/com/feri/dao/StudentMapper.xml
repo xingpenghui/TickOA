@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.feri.dao.StudentMapper">
+
+	
+	<select id="queryByNo" resultType="Student">
+		select s.*,g.name gname,st.name sname from t_student s left join t_grade g on s.gid=g.id left join t_staff st on s.introno=st.no  where s.flag=1 and s.no=#{no}
+	</select>
+	<select id="queryCount" resultType="Long">
+		select count(*) from t_student where flag=1
+	</select>
+	<select id="queryCountGid" resultType="Student">
+		select count(*) from t_student where flag=1 and gid=#{gid}
+	</select>
+	<update id="updateByNo">
+		update t_student set photo=#{photo} where no=#{no}
+	</update>
+
+</mapper>

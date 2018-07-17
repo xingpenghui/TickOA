@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>滴答TQCS平台</title>
+    <link rel="stylesheet" href="media/layui/css/layui.css" media="all">
+    <!-- <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css"> -->
+    <link rel="stylesheet" href="media/css/app.css" media="all">
+    <script type="text/javascript" src="media/js/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="layui-layout layui-layout-admin kit-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo"><img src="media/images/qf_logo.png" style="margin-right:10px"/><span style="font-size:22px">TQCS平台</span></div>
+            <div class="layui-logo kit-logo-mobile">Feri</div>
+            
+            <ul class="layui-nav layui-layout-right kit-nav">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="media/images/qf.jpg" class="layui-nav-img"> Feri
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">基本资料</a></dd>
+                        <dd><a href="javascript:showpwd();">修改密码</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href='loginout.do'><i class="fa fa-sign-out" aria-hidden="true"></i>注销</a></li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black kit-side">
+            <div class="layui-side-scroll">
+                <div class="kit-side-fold"><i class="fa fa-navicon" aria-hidden="true"></i></div>
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span>学员后台</span></a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="studentupdate.html" data-icon="fa-user" data-title="我的资料" kit-target data-id='1'><i class="layui-icon">&#xe6c6;</i><span>我的资料</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="table.html" data-icon="fa-user" data-title="我的班级" kit-target data-id='2'><i class="layui-icon">&#xe628;</i><span>我的班级</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="nav.html" data-icon="&#xe628;" data-title="我的周报" kit-target data-id='3'><i class="layui-icon">&#xe628;</i><span>我的周报</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="nav.html" data-icon="&#xe628;" data-title="我的问题" kit-target data-id='4'><i class="layui-icon">&#xe628;</i><span>我的问题</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="nav.html" data-icon="&#xe628;" data-title="我的测评" kit-target data-id='5'><i class="layui-icon">&#xe628;</i><span>我的测评</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="nav.html" data-icon="&#xe628;" data-title="我的证书" kit-target data-id='6'><i class="layui-icon">&#xe628;</i><span>我的证书</span></a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span>面试宝典</span></a>
+                        <dl class="layui-nav-child">
+                            
+                            <dd>
+                                <a href="javascript:;" data-url="questadd.html" data-icon="fa-user" data-title="习题新增" kit-target data-id='11'><i class="layui-icon">&#xe6c6;</i><span>习题新增</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="questlist.html" data-icon="fa-user" data-title="习题列表" kit-target data-id='12'><i class="layui-icon">&#xe628;</i><span>习题列表</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="nav.html" data-icon="&#xe628;" data-title="面试资料" kit-target data-id='13'><i class="layui-icon">&#xe628;</i><span>面试资料</span></a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a  href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span>我的资源</span></a>
+                        <dl class="layui-nav-child">
+                            
+                            <dd>
+                                <a href="javascript:;" data-url="form.html" data-icon="fa-user" data-title="学习笔记" kit-target data-id='21'><i class="layui-icon">&#xe6c6;</i><span>学习笔记</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="form.html" data-icon="fa-user" data-title="代码仓库" kit-target data-id='22'><i class="layui-icon">&#xe628;</i><span>代码仓库</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="nav.html" data-icon="&#xe628;" data-title="开发资料" kit-target data-id='23'><i class="layui-icon">&#xe628;</i><span>开发资料</span></a>
+                            </dd>
+                            
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a  href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span>消息管理</span></a>
+                        <dl class="layui-nav-child">
+                            
+                            <dd>
+                                <a href="javascript:;" data-url="form.html" data-icon="fa-user" data-title="邮件消息" kit-target data-id='31'><i class="layui-icon">&#xe6c6;</i><span>邮件消息</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="form.html" data-icon="fa-user" data-title="短信消息" kit-target data-id='32'><i class="layui-icon">&#xe628;</i><span>短信消息</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="nav.html" data-icon="&#xe628;" data-title="系统消息" kit-target data-id='33'><i class="layui-icon">&#xe628;</i><span>系统消息</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="nav.html" data-icon="&#xe628;" data-title="留言消息" kit-target data-id='34'><i class="layui-icon">&#xe628;</i><span>留言消息</span></a>
+                            </dd>
+                        </dl>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="layui-body" id="container">
+            <!-- 内容主体区域 -->
+            <div style="padding: 15px;">主体内容加载中,请稍等...</div>
+        </div>
+        <div class="layui-footer">
+            <p>Copyright 2011-2018 <a href="http://www.1000phone.com/" rel="nofollow" target="_blank" title="千锋互联">北京滴答科技有限公司 Feri 版权所有</a> 京ICP备12003911号-3 京公网安备11010802011455号</p>
+        </div>
+    </div>
+    <div id="dvpwd">
+    <form action="userpwd.do" method="post">
+    	<table>
+    		<tr>
+    			<td>原始密码：</td>
+    			<td><input type="password" id="p1"></td>
+    		</tr>
+    		<tr>
+    			<td>新密码：</td>
+    			<td><input type="password" name="password" id="p2"></td>
+    		</tr>
+    		<tr>
+    			<td>确认密码：</td>
+    			<td><input type="password" id="p3"></td>
+    		</tr>
+    		<tr>
+    			<td colspan="2"><input type="submit" value="修改密码"></td>
+    		</tr>
+    	</table>
+    	</form>
+    </div>
+    <script src="media/layui/layui.js"></script>
+    <script>
+        var message;
+        layui.config({
+            base: 'media/layui/lay/modules/'
+        }).use(['app', 'message'], function() {
+            var app = layui.app,
+                $ = layui.jquery,
+                layer = layui.layer;
+            //将message设置为全局以便子页面调用
+            message = layui.message;
+            //主入口
+            app.set({
+                type: 'iframe'
+            }).init();
+            
+        });
+        function showpwd(){
+        	layer.open({
+        		  type: 1,
+        		  content: $('#dvpwd') //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+        		});
+        }
+    </script>
+</body>
+
+</html>

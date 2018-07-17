@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>滴答TQCS平台-登录</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<!-- load css -->
+<link rel="stylesheet" type="text/css" href="media/layui/css/layui.css"
+	media="all">
+<link rel="stylesheet" type="text/css" href="media/css/login.css"
+	media="all">
+<link rel="stylesheet" type="text/css" href="media/css/verify.css">
+</head>
+<body class="layui-bg-black">
+	<div class="layui-canvs"></div>
+	<div class="layui-layout layui-layout-login">
+		<form action="login.do" method="post">
+			<h1>
+				<strong>滴答TQCS平台-登录</strong> <em>Teaching Quality Control System</em>
+			</h1>
+			<div class="layui-user-icon larry-login">
+				<input type="text" placeholder="学号" class="login_txtbx" name="no" />
+			</div>
+			<div class="layui-pwd-icon larry-login">
+				<input type="password" placeholder="密码" name="pass"
+					class="login_txtbx" />
+			</div>
+			<div class="feri-code">
+				<div id="mpanel4"></div>
+			</div>
+			<input type="hidden" name="ip" id="ip1"> 
+			<input type="hidden" name="city" id="cy1">
+			<div class="layui-submit larry-login">
+				<input type="submit" id="btn1" disabled="disabled" value="立即登陆"
+					class="submit_btn" />
+			</div>
+		</form>
+		<div class="layui-login-text">
+			<p>© 2016-2018 北京滴答科技有限公司 Feri 版权所有</p>
+		</div>
+	</div>
+	<script type="text/javascript" src="media/layui/layui.all.js"></script>
+	<script type="text/javascript" src="media/js/login.js"></script>
+	<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+	<!--互动的粒子动画特效插件  -->
+	<script type="text/javascript" src="media/js/jparticle.jquery.js"></script>
+	<script type="text/javascript" src="media/js/verify.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			//互动的粒子动画特效插件
+			/* $(".layui-canvs").jParticle({
+				background: "#141414",
+				color: "#E6E6E6"
+			}); */
+			//滑动验证码
+			$('#mpanel4').slideVerify({
+				type : 2, //类型
+				vOffset : 3, //误差量，根据需求自行调整
+				vSpace : 5, //间隔
+				imgName : [ '1.jpg', '2.jpg' ],
+				imgSize : {
+					width : '400px',
+					height : '200px',
+				},
+				blockSize : {
+					width : '30px',
+					height : '30px',
+				},
+				barSize : {
+					width : '400px',
+					height : '30px',
+				},
+				ready : function() {
+				},
+				success : function() {
+					/* alert('验证成功，添加你自己的代码！');
+					//......后续操作
+					defaults.explain="OK"; */
+					$("#btn1").attr("disabled", false);
+				},
+				error : function() {
+
+				}
+
+			});
+			$("#ip1").val(returnCitySN["cip"]);
+			$.get({
+				url:"http://ip.taobao.com/service/getIpInfo.php",
+				headers:{
+					'Access-Control-Allow-Origin':"*"
+				},
+				data:"ip="+returnCitySN["cip"],
+				success:function(json){
+					var obj=JSON.parse(json);
+					console.log(obj);
+					$("#cy1").val(obj.data.city);
+				}
+			});
+			
+
+
+		});
+	</script>
+</body>
+</html>

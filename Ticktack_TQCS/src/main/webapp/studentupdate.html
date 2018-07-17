@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>滴答办公系统-学员修改</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="media/layui/css/layui.css" media="all">
+<script type="text/javascript" src="media/js/jquery.min.js"></script>
+<style type="text/css">
+.layui-form-label {
+	width: 100px;
+}
+.layui-bg-blue {
+	width: 200px;
+}
+</style>
+</head>
+<body>
+	<div class="layui-container" style="margin-top: 5px;font-size: 20px">
+		<div class="layui-row" style="border: 1px solid blue; ">
+			<div class="layui-col-md6">
+				<label class="layui-form-label">学号:</label> <label
+					class="layui-form-label layui-bg-blue" id="f1"
+					style="text-align: left;">aaa</label>
+			</div>
+			<div class="layui-col-md6">
+				<label class="layui-form-label">姓名:</label> <label
+					class="layui-form-label layui-bg-blue" id="f2"
+					style="text-align: left;">aaa</label>
+			</div>
+			<div class="layui-col-md6">
+				<label class="layui-form-label">班级:</label> <label
+					class="layui-form-label layui-bg-blue" id="f3"
+					style="text-align: left;">aaa</label>
+			</div>
+			<div class="layui-col-md6">
+				<label class="layui-form-label">性别:</label> <label
+					class="layui-form-label layui-bg-blue" id="f4"
+					style="text-align: left;">aaa</label>
+			</div>
+			<div class="layui-col-md6">
+				<label class="layui-form-label">邮箱:</label> <label
+					class="layui-form-label layui-bg-blue" id="f5"
+					style="text-align: left;">aaa</label>
+			</div>
+			<div class="layui-col-md6">
+				<label class="layui-form-label">手机:</label> <label
+					class="layui-form-label layui-bg-blue" id="f6"
+					style="text-align: left;">aaa</label>
+			</div>
+			<div class="layui-col-md6">
+				<label class="layui-form-label">QQ:</label> <label
+					class="layui-form-label layui-bg-blue" id="f7"
+					style="text-align: left;">aaa</label>
+			</div>
+			<div class="layui-col-md6">
+				<label class="layui-form-label">身份证号:</label> <label
+					class="layui-form-label layui-bg-blue" id="f8"
+					style="text-align: left;">aaa</label>
+			</div>
+			<div class="layui-col-md6">
+				<label class="layui-form-label">学历:</label> <label
+					class="layui-form-label layui-bg-blue" id="f10"
+					style="text-align: left;">aaa</label>
+			</div>
+			<div class="layui-col-md6">
+				<label class="layui-form-label">毕业学校:</label> <label
+					class="layui-form-label layui-bg-blue" id="f9"
+					style="text-align: left;">aaa</label>
+			</div>
+			<div class="layui-col-md6">
+				<label class="layui-form-label">生日:</label> <label
+					class="layui-form-label layui-bg-blue" id="f11"
+					style="text-align: left;">aaa</label>
+			</div>
+			<div class="layui-col-md6">
+				<label class="layui-form-label">入学:</label> <label
+					class="layui-form-label layui-bg-blue" id="f12"
+					style="text-align: left;">aaa</label>
+			</div>
+			<div class="layui-col-md6">
+				<label class="layui-form-label">招生老师:</label> <label
+					class="layui-form-label layui-bg-blue" id="f13"
+					style="text-align: left;">aaa</label>
+			</div>
+		</div>
+
+		<form action="studentupdate.do" method="post" style="border: 1px solid red;">
+			<div class="layui-form-item">
+				<label class="layui-form-label">照片:</label>
+				
+				<div class="layui-input-block">
+				<img alt="个人一寸照片" src="media/images/qf.jpg" id="img1" width="200px" height="300px">
+				<input type="hidden" name="photo" id="p1"> 
+				<input type="hidden" name="no" id="no1">
+				
+				</div>
+				
+			</div>
+			<div class="layui-form-item">
+			<label class="layui-form-label"></label>
+			<div  class="layui-input-block">
+			<button type="button" class="layui-btn" id="upfile">
+					<i class="layui-icon">&#xe67c;</i>选择图片
+				</button>
+				<input class="layui-btn"  id="btn1" disabled="disabled" style="margin-left: 150px" type="submit"
+					value="修改靓照">
+			</div>
+			</div>
+			
+		</form>
+
+	</div>
+	<script src="media/layui/layui.js"></script>
+	<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+	<script>
+		layui.use([ 'form','upload' ], function() {
+			var form = layui.form;
+			initData();
+			var upload = layui.upload;
+			   
+			  //执行实例
+			  var uploadInst = upload.render({
+			    elem: '#upfile' //绑定元素
+			    ,url: 'photoupload.do' //上传接口
+			    ,done: function(obj){
+			      //上传完毕回调
+			      if(obj.code==1000){
+			    	  $("#p1").val(obj.msg);
+				      $("#img1")[0].src="/tickresource/"+obj.msg;
+			      	  $("#btn1").attr("disabled",false);
+			      }else{
+			    	  $("#img1")[0].src="media/images/cw1.jpg";
+			      }
+			      
+			    }
+			    ,error: function(){
+			      //请求异常回调
+			    }
+			  });
+		});
+
+		//初始化数据
+		function initData() {
+			$.get("studentbyno.do", null, function(obj) {
+				$("#f1").html(obj.no);
+				$("#no1").val(obj.no);
+				$("#f2").html(obj.name);
+				$("#f3").html(obj.gname);
+				$("#f4").html(obj.sex);
+				$("#f5").html(obj.email);
+				$("#f6").html(obj.phone);
+				$("#f7").html(obj.qq);
+				$("#f8").html(obj.cardno);
+				$("#f9").html(obj.school);
+				$("#f10").html(obj.education);
+				$("#f11").html(obj.birthday);
+				$("#f12").html(obj.createdate);
+				$("#f13").html(obj.sname);
+				$("#img1")[0].src = "/tickresource/" + obj.photo;
+				$("#p1").val(obj.photo);
+
+			});
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>滴答统一后台</title>
+    <link rel="stylesheet" href="../media/layui/css/layui.css">
+    <link rel="stylesheet" href="../media/css/font-awesome.min.css">
+    <style type="text/css">
+        iframe{
+            width: 98%;
+            height: 98%;
+        }
+        .layui-tab-item{
+            height: 98%;
+        }
+    </style>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">
+            <img src="../media/images/qf_logo.png" style="margin-right: 10px" /><span
+                style="font-size: 22px">滴答办公系统</span>
+        </div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item" style="margin-left: 100px">
+                <a href="javascript:showTab(1001,'user.html','基本资料');">待办事项<span class="layui-badge">99+</span></a>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="media/images/qf_logo.png" class="layui-nav-img">
+                    Feri
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:showTab(1001,'user.html','基本资料');">基本资料</a></dd>
+                    <dd><a href="javascript:showTab(1002,'user.html','安全设置');">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">退出</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" id="lm"  lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a><i class="fa fa-camera-retro">测试管理</i></a>
+               </li>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a><i class="fa fa-camera-retro"></i>测试管理</a>
+               </li>
+
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a><i class="layui-icon layui-icon-username"></i>测试管理</a>
+               </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body" >
+        <!-- 内容主体区域 -->
+        <div class="layui-tab" lay-filter="demo" style="width: 100%;height: 90%">
+            <ul class="layui-tab-title"></ul>
+            <div class="layui-tab-content" style="width: 99%;height: 98%"></div>
+        </div>
+    </div>
+
+    <div class="layui-footer" style="text-align: center">
+        <p>
+            Copyright 2011-2018 <a href="http://www.1000phone.com/"
+                                   rel="nofollow" target="_blank" title="千锋互联">北京滴答科技有限公司 Feri
+            版权所有</a> 京ICP备12003911号-3 京公网安备11010802011455号
+        </p>
+    </div>
+</div>
+<script src="../media/js/jquery.min.js"></script>
+<script src="../media/layui/layui.js"></script>
+<script>
+    //JavaScript代码区域
+    var element;
+    layui.use('element', function(){
+        element = layui.element;
+
+    });
+
+</script>
+</body>
+</html>

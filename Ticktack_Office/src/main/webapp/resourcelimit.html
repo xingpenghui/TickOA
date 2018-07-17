@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:display="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<title>滴答办公系统-权限管理</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="media/layui/css/layui.css" media="all">
+	<link rel="stylesheet" href="media/css/font-awesome.min.css">
+<script src="media/js/jquery.min.js"></script>
+</head>
+<body>
+	<div class="layui-container">
+		<div class="layui-btn-group">
+			<button class="layui-btn layui-btn-norma" onclick="addAuth()">
+				<i class="layui-icon">&#xe654;</i>添加权限
+			</button>
+
+		</div>
+		<table id="tbdata" lay-filter="tbop">
+		</table>
+		<script type="text/html" id="barop">
+    		<a class="layui-btn layui-btn-mini" lay-event="edit">编辑</a>
+    		<a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
+		</script>
+	</div>
+	<script src="media/layui/layui.js"></script>
+	<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+	<script>
+        var form;
+	layui.use(['table','form'], function(){
+		  var table = layui.table;
+		form=layui.form;
+        form.on('radio(level)', function (data) {
+            changePid(data.value);
+        });
+		  //第一个实例
+		  table.render({
+		    elem: '#tbdata'
+		    ,url: 'authoritylist.do' //数据接口
+		    ,page: true //开启分页
+		    ,cols: [[ //表头
+		      {field: 'id', title: '序号', sort: true, fixed: 'left'}
+		      ,{field: 'title', title: '名称'}
+		      ,{field: 'aurl', title: '页面路径',templet: function (obj) {
+                          return obj.parentId==0?"":obj.aurl}
+				  }
+		      ,{field: 'aicon', title: '图标', templet: function (obj) {
+                          return "<span><i class=\"fa "+obj.aicon+"\"></i></span>";
+                      }
+				  }
+		      ,{field: 'parentId', title: '级别', templet: function (obj) {
+					  return obj.parentId==0?"一级页面":"二级页面"}}
+		      ,{field:'right', title: '操作',toolbar:"#barop"}
+		    ]]
+		  });
+		  //监听工具条
+		  table.on('tool(tbop)', function(obj){
+		        var data = obj.data;
+		        if(obj.event === 'del'){
+		            layer.confirm('是否确认删除权限?', function(index){
+		                $.ajax({
+		                    url: "coursedelete.do",
+		                    type: "POST",
+		                    data:"id="+data.id,
+		                    success: function(data){
+		                        if(data.code==1000){
+		                            obj.del();//删除表格中的对应行数据
+		                            layer.close(index);
+		                            layer.msg("删除成功", {icon: 6});
+		                        }else{
+		                            layer.msg("删除失败", {icon: 5});
+		                        }
+		                    }
+		                });
+		            });
+		        } else if(obj.event === 'edit'){//编辑 修改
+		        	//get传递参数有中文，必须编码
+		        	//JSON.stringify 将对象转换为字符串
+		           location.href="courseupdate.html?d="+ encodeURI(JSON.stringify(data));
+		        }
+		});
+	});
+	function addAuth() {
+        layer.open({
+            area: ['500px', '380px'],
+            title: '权限页面新增',
+            type: 1,
+            content:  $('#dvlay'), //这里content是一个普通的String
+            btn: ['新增', '取消'],
+            yes: function(index, layero){
+                $.ajax({
+                    url: "authorityadd.do",
+					method:"post",
+                    data: $("#fm1").serialize(),
+                    success: function (obj) {
+                        if (obj.code == 1000) {
+                            layer.msg("新增权限成功");
+                            searchData();
+                        } else {
+                            layer.msg("新增权限失败");
+                        }
+                    }
+                })
+                layer.close(index);
+            },cancel: function(){
+            }
+        });
+    }
+    function changePid(i) {
+		if(i==-1){
+            $.get("authorityroot.do",null,function (arr) {
+				for(i=0;i<arr.length;i++){
+                    $("#spid").append("<option value=\""+arr[i].id+"\">"+arr[i].title+"</option>");
+				}
+            $("#dvl1").css("display","block");
+            form.render();
+            });
+		}else{
+            $("#dvl1").css("display","none");
+		    $("#pid").val(i);
+		}
+    }
+    function setPid(obj) {
+        $("#pid").val(obj.value());
+    }
+</script>
+</body>
+<div style="display: none;margin-top: 10px;width: 480px" id="dvlay">
+	<form id="fm1" class="layui-form " >
+		<div class="layui-form-item"  >
+			<label class="layui-form-label">名称：</label>
+			<div class="layui-input-inline">
+				<input name="title" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item"  >
+			<label class="layui-form-label">图标：</label>
+			<div class="layui-input-inline">
+				<input name="aicon" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item" >
+			<label class="layui-form-label">路径：</label>
+			<div class="layui-input-inline">
+				<input name="aurl" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item" >
+			<label class="layui-form-label">级别：</label>
+			<div class="layui-input-inline">
+				<input type="radio" name="pid" value="0" lay-filter="level"  title="一级" checked>
+				<input type="radio" name="pid" value="-1" lay-filter="level"   title="二级" >
+			</div>
+		</div>
+		<input type="hidden" name="parentId" id="pid">
+		<div class="layui-form-item" id="dvl1" style="display: none" >
+			<label class="layui-form-label">上级路径：</label>
+			<div class="layui-input-inline">
+				<select onselect="setPid(this)" id="spid" >
+
+				</select>
+
+			</div>
+		</div>
+	</form>
+</div>
+</html>

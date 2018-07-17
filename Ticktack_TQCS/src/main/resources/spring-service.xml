@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--spring 的配置 约束文件用到哪个引入哪个 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd
+		">
+	<context:component-scan base-package="com.feri.service.impl"></context:component-scan>
+	<!--5、配置事务 -->
+	<!--事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<!--配置数据库连接池 需要为那些设置事务 -->
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<!--配置 增强处理类 -->
+	<tx:advice transaction-manager="transactionManager"
+		id="txadvice">
+		<!--设置具体的方法的事务信息 -->
+		<tx:attributes>
+			<!--具体的方法 连接点 -->
+			<tx:method name="insert*" isolation="DEFAULT"
+				propagation="REQUIRED" timeout="3000" />
+			<tx:method name="*"  propagation="SUPPORTS"></tx:method>
+		</tx:attributes>
+	</tx:advice>
+	<!--配置aop -->
+	<aop:config>
+		<!--配置需要添加事务的方法 -->
+		<aop:pointcut
+			expression="execution(* com.feri.service.impl.*.*(..))" id="tpt" />
+		<!--设置事务 -->
+		<aop:advisor advice-ref="txadvice" pointcut-ref="tpt" />
+	</aop:config>
+
+
+</beans>

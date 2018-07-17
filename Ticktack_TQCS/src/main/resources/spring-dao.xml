@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--spring 的配置 约束文件用到哪个引入哪个 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://mybatis.org/schema/mybatis-spring
+		http://www.mybatis.org/schema/mybatis-spring.xsd
+		">
+	<!--1、扫描Mybatis的注解 1.2.0之后新增 -->
+	<!-- <mybatis:scan base-package="com.feri.dao"/> -->
+	
+	<!--1、加载指定的配置文件 数据库的配置信息 -->
+	<context:property-placeholder
+		location="classpath:dbconfig.properties" />
+	<!--2、设置数据库连接池 -->
+	<bean id="dataSource"
+		class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="driverClassName" value="${dbdriver}"></property>
+		<property name="url" value="${dburl}"></property>
+		<property name="username" value="${dbusername}"></property>
+		<property name="password" value="${dbpassword}"></property>
+	</bean>
+
+	<!--3、创建Mybatis的工厂对象 -->
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!--设置数据库连接池 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="typeAliasesPackage" value="com.feri.domain"></property>
+		<!--设置Mybatis的配置文件 -->
+		<!-- <property name="configLocation" value="classpath:mybatisconfig.xml"></property> -->
+	</bean>
+	<!--4、设置Mybatis的映射文件的信息 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 设置映射文件所在包 -->
+		<property name="basePackage" value="com.feri.dao"></property>
+		
+	</bean>
+	
+</beans>

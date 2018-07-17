@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--1、扫描-->
+    <!--<bean id="myRealm" class="com.qfedu.web.shiro.MyRealm"></bean>-->
+    <context:component-scan base-package="com.feri.web.shiro"></context:component-scan>
+    <!--2、配置管理器-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!--配置数据源-->
+        <property name="realm" ref="myRealm"></property>
+
+    </bean>
+    <!--3、配置过滤器-->
+    <bean id="shiroFilter" class="com.feri.web.shiro.MyFilterFactoryBean">
+        <!--配置安全管理器-->
+        <property name="securityManager" ref="securityManager"></property>
+        <property name="loginUrl" value="login.html"></property>
+        <property name="successUrl" value="views/index.html"></property>
+        <property name="unauthorizedUrl" value="error.html"></property>
+        <!--放行资源-->
+        <property name="filterChainDefinitions">
+            <value>
+                /login.html=anon
+                /login.do=anon
+                /media/**=anon
+                /ws/**=anon
+            </value>
+        </property>
+        <!--4、配置自定义过滤器-->
+        <property name="filters">
+            <map>
+                <entry key="roles">
+                    <bean class="com.feri.web.shiro.MyFiler"></bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
+</beans>

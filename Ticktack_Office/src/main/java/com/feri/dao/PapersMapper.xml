@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.feri.dao.PapersMapper">
+  <resultMap id="BaseResultMap" type="com.feri.domain.Papers">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="no" jdbcType="VARCHAR" property="no" />
+    <result column="imageurl" jdbcType="VARCHAR" property="imageurl" />
+    <result column="flag" jdbcType="INTEGER" property="flag" />
+    <result column="createdate" jdbcType="DATE" property="createdate" />
+    <result column="enddate" jdbcType="DATE" property="enddate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, type, no, imageurl, flag, createdate, enddate
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_papers
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_papers
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.feri.domain.Papers">
+    insert into t_papers (id, type, no, 
+      imageurl, flag, createdate, 
+      enddate)
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, 
+      #{imageurl,jdbcType=VARCHAR}, #{flag,jdbcType=INTEGER}, #{createdate,jdbcType=DATE}, 
+      #{enddate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feri.domain.Papers">
+    insert into t_papers
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="no != null">
+        no,
+      </if>
+      <if test="imageurl != null">
+        imageurl,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="createdate != null">
+        createdate,
+      </if>
+      <if test="enddate != null">
+        enddate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="imageurl != null">
+        #{imageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=DATE},
+      </if>
+      <if test="enddate != null">
+        #{enddate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feri.domain.Papers">
+    update t_papers
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="no != null">
+        no = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="imageurl != null">
+        imageurl = #{imageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null">
+        createdate = #{createdate,jdbcType=DATE},
+      </if>
+      <if test="enddate != null">
+        enddate = #{enddate,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feri.domain.Papers">
+    update t_papers
+    set type = #{type,jdbcType=INTEGER},
+      no = #{no,jdbcType=VARCHAR},
+      imageurl = #{imageurl,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=INTEGER},
+      createdate = #{createdate,jdbcType=DATE},
+      enddate = #{enddate,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
